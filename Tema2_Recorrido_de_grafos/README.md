@@ -5,7 +5,7 @@
 - BFS (Breadth-First Search): recorre el grafo por niveles, es decir, recorre los vecinos del nodo antes de ir más profundo.
 - DFS(Depth-First Search): recorre el grafo en profundidas, primero explora el camino más profundo antes de retroceder.
 
-Ambos algoritmos funcionan sobre grafos dirigidos, no dirigidos, ponderados, y no ponderados (las ponderacionesno afectan el recorrido).
+Ambos algoritmos funcionan sobre grafos dirigidos, no dirigidos, ponderados, y no ponderados (las ponderaciones no afectan el recorrido).
 ---
 ## Como usar el programa
 El código pide:
