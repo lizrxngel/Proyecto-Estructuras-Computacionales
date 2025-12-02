@@ -1,38 +1,40 @@
 // Tema 5: Ver si un grafo es arbol o no 
-// Usando DFS
+// Usando BFS
 
 #include <iostream>
 #include <vector>
+#include <queue>
 using namespace std;
 
+bool conectado(int n, const vector<vector<int> > &g) {
+    vector<bool> vis(n, false);
+    queue<int> q;
 
-bool dfs(int u, int padre, vector<bool> &vis, const vector<vector<int> > &g) {
-    vis[u] = true;
+    vis[0] = true;
+    q.push(0);
+    int cont = 1;
 
-    for (int i = 0; i < g[u].size(); i++) {
-        int v = g[u][i];
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
 
-        if (!vis[v]) {
-            if (dfs(v, u, vis, g)) return true; 
-        }
-        else if (v != padre) {
-            return true; 
+        for (int i = 0; i < g[u].size(); i++) {
+            int v = g[u][i];
+
+            if (!vis[v]) {
+                vis[v] = true;
+                q.push(v);
+                cont++;
+            }
         }
     }
-    return false;
+    return cont == n;
 }
 
-bool esArbol(int n, const vector<vector<int> > &g, bool dirigido) {
-    if (dirigido) return false; 
-
-    vector<bool> vis(n, false);
-
-    if (dfs(0, -1, vis, g)) return false;
-
-    for (int i = 0; i < n; i++)
-        if (!vis[i]) return false;
-
-    return true;
+bool esArbol2(int n, int m, const vector<vector<int> > &g, bool dirigido) {
+    if (dirigido) return false;     // un árbol no es dirigido
+    if (m != n - 1) return false;   // propiedad básica del árbol
+    return conectado(n, g);         // verificar que sea conectado
 }
 
 int main() {
@@ -64,7 +66,7 @@ int main() {
 
     int op;
     do {
-        cout << "\n===== MENU (METODO DFS) =====\n";
+        cout << "\n===== MENU (PROPIEDADES + BFS) =====\n";
         cout << "1. Mostrar si es dirigido\n";
         cout << "2. Mostrar si es ponderado\n";
         cout << "3. Ver si es arbol\n";
@@ -79,7 +81,7 @@ int main() {
             cout << (ponderado ? "El grafo es ponderado\n" : "El grafo NO es ponderado\n");
 
         if (op == 3) {
-            if (esArbol(n, g, dirigido))
+            if (esArbol2(n, m, g, dirigido))
                 cout << "El grafo ES un arbol\n";
             else
                 cout << "El grafo NO es un arbol\n";
