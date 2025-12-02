@@ -43,5 +43,9 @@ g++ 2_DFS.cpp -o dfs
 ```
 O si ya tienes el ejecutable
 ```bash
+<<<<<<<< HEAD:Tema2_Recorrido_de_grafos/README.md
 ./2_DFS.exe
+========
+./Tema1_ListaAdyacencia.exe
+>>>>>>>> main:Tema1_Representacion_de_grafos/README.md
 ```
