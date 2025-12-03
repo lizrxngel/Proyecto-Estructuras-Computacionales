@@ -78,11 +78,8 @@ int main() {
 
         if (opcion == 0) break;
 
-
     }
     
-
-
         if (opcion == 1 || opcion == 2) {
             int n;
             cout << "Tamano de la matriz (n x n): ";
