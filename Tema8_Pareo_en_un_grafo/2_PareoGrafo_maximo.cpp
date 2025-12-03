@@ -80,6 +80,52 @@ int main() {
 
 
     }
+    
 
+
+        if (opcion == 1 || opcion == 2) {
+            int n;
+            cout << "Tamano de la matriz (n x n): ";
+            cin >> n;
+            cout << "Introduce la matriz de costos (" << n << " filas de " << n << " enteros):\n";
+
+            vector<vector<int>> costo(n, vector<int>(n));
+            int maxValor = 0;
+            for (int i = 0; i < n; ++i) {
+                for (int j = 0; j < n; ++j) {
+                    cin >> costo[i][j];
+                    if (costo[i][j] > maxValor) maxValor = costo[i][j];
+                }
+            }
+
+            if (opcion == 2) {
+                for (int i = 0; i < n; ++i)
+                    for (int j = 0; j < n; ++j)
+                        costo[i][j] = maxValor - costo[i][j];
+            }
+
+            auto res = hungaroMinimo(costo);
+            vector<int> asign = res.first;
+            int costoTransformado = res.second;
+
+            int costoOriginal = 0;
+            if (opcion == 1) {
+                costoOriginal = costoTransformado;
+            } else {
+                costoOriginal = n * maxValor - costoTransformado;
+            }
+
+            cout << "Pareo encontrado (fila -> columna):\n";
+            for (int i = 0; i < n; ++i) {
+                cout << "Fila " << i << " -> Columna " << asign[i] << "\n";
+            }
+            if (opcion == 1)
+                cout << "Costo total MINIMO: " << costoOriginal << "\n";
+            else
+                cout << "Costo total MAXIMO: " << costoOriginal << "\n";
+
+        } else {
+            cout << "Opcion no valida.\n";
+        }
     return 0;
 }
