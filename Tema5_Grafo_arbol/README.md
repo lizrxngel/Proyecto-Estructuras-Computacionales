@@ -24,3 +24,27 @@ Para verificar si un grafo es un árbol se comprueban las siguientes propiedades
     3. Es conexo, es decir, para todo par de nodos hay al menos una arista conectandolos.
 
 BFS permite recorrer niveles de del grafo y determina qué nodos son alcanzables desde un nodo raíz, por lo que haciendo uso de eso y de las propiedades mencionadas, se puede determinar si un grafo es árbol o no.
+
+## Cómo compilar
+
+**Algoritmo 1**
+Usando `g++`:
+```bash
+g++ 1_EsArbol_DFS.cpp -o arbol
+./arbol
+```
+O si ya tienes el ejecutable
+```bash
+./1_EsArbol_DFS.exe
+```
+
+**Algoritmo 2**
+Usando `g++`:
+```bash
+g++ 1_EsArbol_BFS.cpp -o arbol
+./arbol
+```
+O si ya tienes el ejecutable
+```bash
+./1_EsArbol_BFS.exe
+```
