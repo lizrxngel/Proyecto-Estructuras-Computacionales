@@ -5,7 +5,6 @@ using namespace std;
 
 // Algoritmo Hungaro para costo minimo de asignacion en matriz cuadrada
 // Devuelve el emparejamiento y el costo total minimo.
-
 pair<vector<int>, int> hungaroMinimo(const vector<vector<int>> &costo) {
     int n = (int)costo.size();
     const int INF = numeric_limits<int>::max();
@@ -62,9 +61,10 @@ pair<vector<int>, int> hungaroMinimo(const vector<vector<int>> &costo) {
     }
     return {asignacion, costoTotal};
 }
-
-
 int main() {
+    // QUITAR estas dos si las tienes:
+    // ios::sync_with_stdio(false);
+    // cin.tie(nullptr);
 
     int opcion;
     while (true) {
@@ -74,17 +74,20 @@ int main() {
         cout << "2) Resolver pareo de costo MAXIMO\n";
         cout << "0) Salir\n";
         cout << "Opcion: ";
-        if (!(cin >> opcion)) return 0;
+
+        if (!(cin >> opcion)) {
+            cout << "Entrada invalida. Terminando programa.\n";
+            break;
+        }
 
         if (opcion == 0) break;
 
-    }
-    
         if (opcion == 1 || opcion == 2) {
             int n;
             cout << "Tamano de la matriz (n x n): ";
             cin >> n;
-            cout << "Introduce la matriz de costos (" << n << " filas de " << n << " enteros):\n";
+            cout << "Introduce la matriz de costos (" << n
+                 << " filas de " << n << " enteros):\n";
 
             vector<vector<int>> costo(n, vector<int>(n));
             int maxValor = 0;
@@ -105,12 +108,11 @@ int main() {
             vector<int> asign = res.first;
             int costoTransformado = res.second;
 
-            int costoOriginal = 0;
-            if (opcion == 1) {
+            int costoOriginal;
+            if (opcion == 1)
                 costoOriginal = costoTransformado;
-            } else {
+            else
                 costoOriginal = n * maxValor - costoTransformado;
-            }
 
             cout << "Pareo encontrado (fila -> columna):\n";
             for (int i = 0; i < n; ++i) {
@@ -124,5 +126,7 @@ int main() {
         } else {
             cout << "Opcion no valida.\n";
         }
+    }
+
     return 0;
 }
