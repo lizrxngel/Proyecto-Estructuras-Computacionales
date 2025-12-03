@@ -233,7 +233,7 @@ void menuGrafos() {
     int opcion;
 
     // imprimir las opciones disponibles
-    cout << "\n====== SELECCION DE GRAFOS ======\n";
+    cout << "\n SELECCION DE GRAFOS n";
     cout << "1. Grafo NO dirigido y ponderado\n";
     cout << "2. Grafo dirigido y ponderado\n";
     cout << "3. Ingresar grafo manualmente\n";
@@ -261,7 +261,7 @@ int main() {
     // bucle que repite el menu hasta que el usuario elija salir (op == 0)
     do {
         // imprimir el menu principal con opciones
-        cout << "\n=========== MENU PRINCIPAL ===========\n";
+        cout << "\n MENU PRINCIPAL n";
         cout << "1. Seleccionar grafo\n";
         cout << "2. Ejecutar Kruskal\n";
         cout << "0. Salir\n";
