@@ -1,7 +1,7 @@
 # Análisis Big O de algoritmos para encontrar Componentes Conecas
 
 ## DFS y BFS
-Ambos algoritmos tienen la misma complejidad, que ya fue analisada en el tema dos, para el análisis completo ir a: [Análisis BigO DFS/BFS](https://github.com/lizrxngel/Proyecto-Estructuras-Computacionales/blob/main/Tema2_Recorrido_de_grafos/BigO.md)
+Ambos algoritmos tienen la misma complejidad, que ya fue analizada en el tema dos, para el análisis completo ir a: [Análisis BigO DFS/BFS](https://github.com/lizrxngel/Proyecto-Estructuras-Computacionales/blob/main/Tema2_Recorrido_de_grafos/BigO.md)
 
 ---
 
