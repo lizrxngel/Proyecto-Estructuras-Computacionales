@@ -44,4 +44,33 @@ void leerGrafo(Grafo &g) {
     cout << "Nota: Para el pareo se ignora la direccion y se trata como grafo no dirigido.\n";
 }
 
-int main(){}
+int main() {
+    Grafo g;
+    bool cargado = false;
+    int opcion;
+
+    while (true) {
+        cout << "\n===== MENU PAREOS EN GRAFO NO BIPARTITO =====\n";
+        cout << "1) Capturar grafo\n";
+        cout << "2) Calcular pareo maximal y verificar si es perfecto\n";
+        cout << "0) Salir\n";
+        cout << "Opcion: ";
+        if (!(cin >> opcion)) {
+            cout << "Entrada invalida. Terminando programa.\n";
+            break;
+        }
+
+        if (opcion == 0) break;
+
+        if (opcion == 1) {
+            leerGrafo(g);
+            cargado = true;
+        } else if (opcion == 2) {
+
+        } else {
+            cout << "Opcion no valida.\n";
+        }
+    }
+
+    return 0;
+}
