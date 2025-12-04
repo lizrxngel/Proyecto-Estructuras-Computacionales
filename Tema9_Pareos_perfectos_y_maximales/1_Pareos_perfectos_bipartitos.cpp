@@ -4,13 +4,11 @@
 #include <limits>
 using namespace std;
 
-
-// Grafo bipartito: parte izquierda U (0..nIzq-1), parte derecha V (0..nDer-1)
 struct GrafoBipartito {
     int nIzq, nDer;
     bool ponderado;
-    vector<pair<int,int>> aristas;      // (u,v) con u en U, v en V
-    vector<int> pesos;                  // opcional
+    vector<pair<int,int>> aristas;      
+    vector<int> pesos;                  
 
     GrafoBipartito(int nIzq = 0, int nDer = 0, bool ponderado = false)
         : nIzq(nIzq), nDer(nDer), ponderado(ponderado) {}
@@ -46,6 +44,7 @@ void leerGrafoBipartito(GrafoBipartito &g) {
     cout << "Nota: El grafo se considera no dirigido para efectos del pareo.\n";
 }
 
+
 vector<pair<int,int>> pareoMaximal(const GrafoBipartito &g) {
     vector<bool> usadoU(g.nIzq, false), usadoV(g.nDer, false);
     vector<pair<int,int>> pareo;
@@ -73,7 +72,6 @@ void imprimirPareo(const vector<pair<int,int>> &pareo, bool esBipartito = true) 
     cout << "Tamano del pareo: " << pareo.size() << "\n";
 }
 
-// Hopcroft-Karp para maximo pareo en bipartito
 const int INFH = numeric_limits<int>::max();
 
 bool bfsHK(const vector<vector<int>> &adjU, vector<int> &dist,
@@ -145,8 +143,7 @@ int hopcroftKarp(const GrafoBipartito &g, vector<int> &pareoU, vector<int> &pare
     return matching;
 }
 
-int main(){
-
+int main() {
     GrafoBipartito g;
     bool cargado = false;
     int opcion;
@@ -163,5 +160,48 @@ int main(){
             break;
         }
 
-}
+        if (opcion == 0) break;
+
+        if (opcion == 1) {
+            leerGrafoBipartito(g);
+            cargado = true;
+        } else if (opcion == 2) {
+            if (!cargado) {
+                cout << "Primero captura el grafo (opcion 1).\n";
+                continue;
+            }
+            auto pareo = pareoMaximal(g);
+            imprimirPareo(pareo, true);
+
+        } else if (opcion == 3) {
+            if (!cargado) {
+                cout << "Primero captura el grafo (opcion 1).\n";
+                continue;
+            }
+            vector<int> pareoU, pareoV;
+            int tam = hopcroftKarp(g, pareoU, pareoV);
+            cout << "Tamano del pareo maximo: " << tam << "\n";
+            vector<pair<int,int>> lista;
+
+            for (int u = 0; u < g.nIzq; ++u) {
+                if (pareoU[u] != -1) {
+                    lista.push_back({u, pareoU[u]});
+                }
+            }
+            imprimirPareo(lista, true);
+
+            bool perfecto = false;
+            if (g.nIzq == g.nDer && tam == g.nIzq) perfecto = true;
+
+            if (perfecto)
+                cout << "El pareo maximo ES perfecto (cubre todos los vertices).\n";
+            else
+                cout << "El pareo maximo NO es perfecto.\n";
+
+        } else {
+            cout << "Opcion no valida.\n";
+        }
+    }
+
+    return 0;
 }
