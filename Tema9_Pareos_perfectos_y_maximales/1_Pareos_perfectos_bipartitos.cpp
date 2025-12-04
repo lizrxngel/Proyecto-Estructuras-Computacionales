@@ -46,10 +46,108 @@ void leerGrafoBipartito(GrafoBipartito &g) {
     cout << "Nota: El grafo se considera no dirigido para efectos del pareo.\n";
 }
 
+vector<pair<int,int>> pareoMaximal(const GrafoBipartito &g) {
+    vector<bool> usadoU(g.nIzq, false), usadoV(g.nDer, false);
+    vector<pair<int,int>> pareo;
+    for (size_t i = 0; i < g.aristas.size(); ++i) {
+        int u = g.aristas[i].first;
+        int v = g.aristas[i].second;
+        if (u < 0 || u >= g.nIzq || v < 0 || v >= g.nDer) continue;
+        if (!usadoU[u] && !usadoV[v]) {
+            usadoU[u] = true;
+            usadoV[v] = true;
+            pareo.push_back({u, v});
+        }
+    }
+    return pareo;
+}
+
+void imprimirPareo(const vector<pair<int,int>> &pareo, bool esBipartito = true) {
+    cout << "Pareo:\n";
+    for (size_t i = 0; i < pareo.size(); ++i) {
+        if (esBipartito)
+            cout << "U " << pareo[i].first << " - V " << pareo[i].second << "\n";
+        else
+            cout << pareo[i].first << " - " << pareo[i].second << "\n";
+    }
+    cout << "Tamano del pareo: " << pareo.size() << "\n";
+}
+
+// Hopcroft-Karp para maximo pareo en bipartito
+const int INFH = numeric_limits<int>::max();
+
+bool bfsHK(const vector<vector<int>> &adjU, vector<int> &dist,
+           const vector<int> &pareoV, const vector<int> &pareoU) {
+    int nU = (int)adjU.size();
+    queue<int> q;
+    for (int u = 0; u < nU; ++u) {
+        if (pareoU[u] == -1) {
+            dist[u] = 0;
+            q.push(u);
+        } else {
+            dist[u] = INFH;
+        }
+    }
+    int distNulo = INFH;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        if (dist[u] < distNulo) {
+            for (int v : adjU[u]) {
+                int u2 = pareoV[v];
+                if (u2 == -1) {
+                    distNulo = dist[u] + 1;
+                } else if (dist[u2] == INFH) {
+                    dist[u2] = dist[u] + 1;
+                    q.push(u2);
+                }
+            }
+        }
+    }
+    return distNulo != INFH;
+}
+
+bool dfsHK(int u, const vector<vector<int>> &adjU, vector<int> &dist,
+           vector<int> &pareoV, vector<int> &pareoU) {
+    for (int v : adjU[u]) {
+        int u2 = pareoV[v];
+        if (u2 == -1 || (dist[u2] == dist[u] + 1 && dfsHK(u2, adjU, dist, pareoV, pareoU))) {
+            pareoU[u] = v;
+            pareoV[v] = u;
+            return true;
+        }
+    }
+    dist[u] = INFH;
+    return false;
+}
+
+int hopcroftKarp(const GrafoBipartito &g, vector<int> &pareoU, vector<int> &pareoV) {
+    vector<vector<int>> adjU(g.nIzq);
+    for (auto &e : g.aristas) {
+        int u = e.first, v = e.second;
+        if (u < 0 || u >= g.nIzq || v < 0 || v >= g.nDer) continue;
+        adjU[u].push_back(v);
+    }
+
+    pareoU.assign(g.nIzq, -1);
+    pareoV.assign(g.nDer, -1);
+    vector<int> dist(g.nIzq);
+    int matching = 0;
+
+    while (bfsHK(adjU, dist, pareoV, pareoU)) {
+        for (int u = 0; u < g.nIzq; ++u) {
+            if (pareoU[u] == -1) {
+                if (dfsHK(u, adjU, dist, pareoV, pareoU)) {
+                    matching++;
+                }
+            }
+        }
+    }
+    return matching;
+}
 
 int main(){
 
-     GrafoBipartito g;
+    GrafoBipartito g;
     bool cargado = false;
     int opcion;
 
@@ -65,4 +163,5 @@ int main(){
             break;
         }
 
+}
 }
