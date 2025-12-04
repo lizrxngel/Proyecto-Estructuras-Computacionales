@@ -47,4 +47,22 @@ void leerGrafoBipartito(GrafoBipartito &g) {
 }
 
 
-int main(){}
+int main(){
+
+     GrafoBipartito g;
+    bool cargado = false;
+    int opcion;
+
+    while (true) {
+        cout << "\n===== MENU PAREOS EN GRAFO BIPARTITO =====\n";
+        cout << "1) Capturar grafo bipartito\n";
+        cout << "2) Calcular pareo maximal (greedy)\n";
+        cout << "3) Calcular pareo maximo (Hopcroft-Karp) y verificar si es perfecto\n";
+        cout << "0) Salir\n";
+        cout << "Opcion: ";
+        if (!(cin >> opcion)) {
+            cout << "Entrada invalida. Terminando programa.\n";
+            break;
+        }
+
+}
