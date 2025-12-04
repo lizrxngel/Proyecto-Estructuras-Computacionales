@@ -44,6 +44,29 @@ void leerGrafo(Grafo &g) {
     cout << "Nota: Para el pareo se ignora la direccion y se trata como grafo no dirigido.\n";
 }
 
+vector<pair<int,int>> pareoMaximal(const Grafo &g, vector<bool> &usado) {
+    usado.assign(g.n, false);
+    vector<pair<int,int>> pareo;
+    for (size_t i = 0; i < g.aristas.size(); ++i) {
+        int u = g.aristas[i].u;
+        int v = g.aristas[i].v;
+        if (u < 0 || u >= g.n || v < 0 || v >= g.n) continue;
+        if (!usado[u] && !usado[v]) {
+            usado[u] = usado[v] = true;
+            pareo.push_back({u, v});
+        }
+    }
+    return pareo;
+}
+
+void imprimirPareo(const vector<pair<int,int>> &pareo) {
+    cout << "Pareo:\n";
+    for (auto &p : pareo) {
+        cout << p.first << " - " << p.second << "\n";
+    }
+    cout << "Tamano del pareo: " << pareo.size() << "\n";
+}
+
 int main() {
     Grafo g;
     bool cargado = false;
