@@ -54,3 +54,22 @@ Estando en la raíz del proyecto y usando `g++`:
 ```bash
 g++ Tema8_Pareo_en_un_grafo/1_PareoGrafo_maximal.cpp -o pareo_maximal
 ./pareo_maximal
+```
+
+O si ya tienes el ejecutable en Windows:
+
+```bash
+./pareo_maximal.exe
+```
+
+**Algoritmo 2 – Pareo maximal (grafo general)**
+
+```bash
+g++ Tema8_Pareo_en_un_grafo/1_PareoGrafo_maximal.cpp -o pareo_maximal
+./2_PareoGrafo_maximo
+```
+
+O si ya tienes el ejecutable:
+```bash
+./2_PareoGrafo_maximo.exe
+```
