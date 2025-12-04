@@ -59,14 +59,6 @@ vector<pair<int,int>> pareoMaximal(const Grafo &g, vector<bool> &usado) {
     return pareo;
 }
 
-void imprimirPareo(const vector<pair<int,int>> &pareo) {
-    cout << "Pareo:\n";
-    for (auto &p : pareo) {
-        cout << p.first << " - " << p.second << "\n";
-    }
-    cout << "Tamano del pareo: " << pareo.size() << "\n";
-}
-
 int main() {
     Grafo g;
     bool cargado = false;
@@ -88,8 +80,39 @@ int main() {
         if (opcion == 1) {
             leerGrafo(g);
             cargado = true;
-        } else if (opcion == 2) {
 
+        } else if (opcion == 2) {
+            if (!cargado) {
+                cout << "Primero captura el grafo (opcion 1).\n";
+                continue;
+            }
+
+            vector<bool> usado;
+            auto pareo = pareoMaximal(g, usado);
+
+            cout << "\n===== RESULTADO PAREO MAXIMAL =====\n";
+            cout << "Pareo maximal encontrado (lista de aristas u - v):\n";
+            for (auto &p : pareo) {
+                cout << p.first << " - " << p.second << "\n";
+            }
+            cout << "Tamano del pareo maximal: " << pareo.size() << "\n\n";
+
+            bool perfecto = true;
+            for (int i = 0; i < g.n; ++i) {
+                if (!usado[i]) {
+                    perfecto = false;
+                    break;
+                }
+            }
+
+            if (perfecto && g.n % 2 == 0 && (int)pareo.size() * 2 == g.n) {
+                cout << "El pareo maximal obtenido ES perfecto (cubre todos los vertices).\n";
+                cout << "Como todos los vertices estan emparejados y el numero de vertices es par,\n";
+                cout << "este mismo pareo maximal es un PAREO PERFECTO.\n";
+            } else {
+                cout << "El pareo maximal obtenido NO es perfecto.\n";
+                cout << "Existen vertices sin emparejar o el numero de vertices es impar.\n";
+            }
         } else {
             cout << "Opcion no valida.\n";
         }
